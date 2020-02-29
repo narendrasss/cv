@@ -7,28 +7,28 @@ export const toIntGrayscale = image => {
   for (let i = 1; i < data.length; i += 4) {
     result.push(data[i])
   }
-  return math.reshape(result, [grayscaled.getWidth(), grayscaled.getHeight()])
+  return math.reshape(result, [grayscaled.getHeight(), grayscaled.getWidth()])
 }
 
-export const correlate = (filter, image) => {
-  const imageWidth = image.length
-  const imageHeight = image[0].length
+export const convolve = (filter, image) => {
+  const imageHeight = image.length
+  const imageWidth = image[0].length
   const filterRadius = math.floor(filter.length / 2)
-  const result = Array(imageWidth)
+  const result = Array(imageHeight)
     .fill(-1)
-    .map(() => Array(imageHeight).fill(0))
+    .map(() => Array(imageWidth).fill(0))
 
   for (let x = filterRadius; x < imageWidth - filterRadius; x++) {
     for (let y = filterRadius; y < imageHeight - filterRadius; y++) {
       let newPixel = 0
       for (let i = -filterRadius; i <= filterRadius; i++) {
         for (let j = -filterRadius; j <= filterRadius; j++) {
-          const pixel = image[x + i][y + j]
+          const pixel = image[y - i][x - j]
           const weight = filter[i + filterRadius][j + filterRadius]
           newPixel += pixel * weight
         }
       }
-      result[x][y] = newPixel
+      result[y][x] = newPixel
     }
   }
 

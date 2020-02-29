@@ -8,7 +8,7 @@ function App() {
   const [image, setImage] = useState(null)
 
   useEffect(() => {
-    Jimp.read('assets/peacock.png').then(im => setImage(im))
+    Jimp.read('assets/sample.jpg').then(im => setImage(im))
   }, [])
 
   if (!image) {
