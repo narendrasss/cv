@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Jimp from 'jimp'
 import './App.css'
 
@@ -7,8 +7,8 @@ import Image from './components/Image'
 function App() {
   const [image, setImage] = useState(null)
 
-  React.useEffect(() => {
-    Jimp.read('assets/sample.jpg').then(im => setImage(im))
+  useEffect(() => {
+    Jimp.read('assets/peacock.png').then(im => setImage(im))
   }, [])
 
   if (!image) {
@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       <header className="header">
-        <Image image={image} width={50} />
+        <Image image={image} pixelSize={8} width={72} />
       </header>
     </div>
   )
