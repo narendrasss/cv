@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       <header className="header">
-        <Image image={image} pixelSize={8} width={72} />
+        <Image image={image} pixelSize={8} width={96} />
       </header>
     </div>
   )

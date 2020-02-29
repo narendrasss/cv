@@ -1,5 +1,5 @@
 import Jimp from 'jimp'
-import { toIntGrayscale } from '../util'
+import { correlate, toIntGrayscale } from '../util'
 
 describe('Image processing', () => {
   const setup = () =>
@@ -20,6 +20,31 @@ describe('Image processing', () => {
           expect(n).toBeGreaterThanOrEqual(0)
         })
       })
+    })
+  })
+
+  describe('correlate', () => {
+    it('should correlate a simple filter and an image', () => {
+      const image = [
+        [1, 0, 2, 3, 4],
+        [0, 1, 3, 1, 0],
+        [4, 5, 1, 0, 2],
+        [1, 2, 0, 3, 4],
+        [0, 1, 3, 4, 1]
+      ]
+      const filter = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 1, 0]
+      ]
+      const result = correlate(filter, image)
+      expect(result).toEqual([
+        [0, 0, 0, 0, 0],
+        [0, 5, 1, 0, 0],
+        [0, 2, 0, 3, 0],
+        [0, 1, 3, 4, 0],
+        [0, 0, 0, 0, 0]
+      ])
     })
   })
 })
