@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "jimp": "^0.9.3",
     "mathjs": "^6.6.1",
+    "prop-types": "^15.7.2",
     "react": "^0.0.0-experimental-d28bd2994",
     "react-dom": "^0.0.0-experimental-d28bd2994",
     "react-scripts": "3.4.0"
