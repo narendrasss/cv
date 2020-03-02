@@ -10,14 +10,18 @@ export const toIntGrayscale = image => {
   return math.reshape(result, [grayscaled.getHeight(), grayscaled.getWidth()])
 }
 
-export const convolve = (filter, image) => {
+export const makeEmptyImage = (width, height, fill = 255) =>
+  Array(height)
+    .fill(-1)
+    .map(() => Array(width).fill(fill))
+
+export const convolve = (filter, image, onStep = () => {}) => {
   const imageHeight = image.length
   const imageWidth = image[0].length
   const filterRadius = math.floor(filter.length / 2)
-  const result = Array(imageHeight)
-    .fill(-1)
-    .map(() => Array(imageWidth).fill(0))
+  const result = makeEmptyImage(imageWidth, imageHeight)
 
+  let count = 0
   for (let x = filterRadius; x < imageWidth - filterRadius; x++) {
     for (let y = filterRadius; y < imageHeight - filterRadius; y++) {
       let newPixel = 0
@@ -29,6 +33,10 @@ export const convolve = (filter, image) => {
         }
       }
       result[y][x] = newPixel
+      onStep(
+        result.map(i => [...i]),
+        count++
+      )
     }
   }
 
