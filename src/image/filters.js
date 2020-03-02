@@ -1,5 +1,11 @@
-export const BOX_FILTER = [
+export const BOX = [
   [1 / 9, 1 / 9, 1 / 9],
   [1 / 9, 1 / 9, 1 / 9],
   [1 / 9, 1 / 9, 1 / 9]
+]
+
+export const GAUSSIAN = [
+  [1 / 16, 1 / 8, 1 / 16],
+  [1 / 8, 1 / 4, 1 / 8],
+  [1 / 16, 1 / 8, 1 / 16]
 ]

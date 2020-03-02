@@ -4,11 +4,18 @@ import './App.css'
 
 import Image from './components/Image'
 import { toIntGrayscale, convolve, makeEmptyImage } from '../image/util'
-import { BOX_FILTER } from '../image/filters'
+import { GAUSSIAN, BOX } from '../image/filters'
+
+const filters = {
+  gaussian: GAUSSIAN,
+  box: BOX
+}
 
 function App() {
   const [image, setImage] = useState(null)
   const [result, setResult] = useState(null)
+  const [selectedFilter, setSelectedFilter] = useState('gaussian')
+  const filter = filters[selectedFilter]
 
   useEffect(() => {
     Jimp.read('assets/peacock.png').then(im => {
@@ -34,13 +41,21 @@ function App() {
       </header>
       <button
         onClick={() =>
-          convolve(BOX_FILTER, image, (partialResult, i) => {
-            setTimeout(() => setResult(partialResult), 500 + i * 50)
+          convolve(filter, image, (partialResult, i) => {
+            setTimeout(() => setResult(partialResult), 500 + i * 5)
           })
         }
       >
         Blur
       </button>
+      <select
+        value={selectedFilter}
+        onChange={e => setSelectedFilter(e.target.value)}
+      >
+        {Object.keys(filters).map(f => (
+          <option value={f}>{f[0].toUpperCase() + f.slice(1)}</option>
+        ))}
+      </select>
     </div>
   )
 }
